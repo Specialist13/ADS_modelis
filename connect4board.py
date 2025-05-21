@@ -1,6 +1,7 @@
 import add
 import math
 
+
 def generate_board(board):
     def board_component(center=[0,0,0], w=10, l=5, color=(0, 0, 255)):
         vertical_piece = [1, w+1, l]
@@ -39,12 +40,14 @@ def generate_board(board):
     color = (0, 0, 255)
     circle_quality = 10
 
+    # Sukurt ir sudeliot pacia lenta
     for i in range(6):
         # Edge here to reduce overlaps :)
-        edge([0, i*10, 0], width, lenght, color)
+        edge([0, i * 10, 0], width, lenght, color)
         for j in range(7):
-            board_component([j*10, i*10, 0], width, lenght, color)
-        bottom([i*10, 0, 0], width, lenght, color)
+            board_component([j * 10, i * 10, 0], width, lenght, color)
+        bottom([i * 10, 0, 0], width, lenght, color)
+
     bottom([6*10, 0, 0], width, lenght, color)
     # Create circles at different positions
 
@@ -59,6 +62,19 @@ def generate_board(board):
             add.curve(current_circle2, 0, 2 * math.pi, circle_quality, 5, 0.5, color, False)
 
     board_component([0, 0, 0], width, lenght, color)
+
+    for j in range(7):
+        vertices, faces = add.load("numbers/" + str(j + 1) + ".off")
+        number_mesh = [vertices, faces]
+
+        number_mesh = add.zoom(number_mesh, 0.7)
+        centras = add.center(number_mesh)
+
+        number_mesh = add.move(number_mesh, [j * 10 - centras[0], -width/2 , -centras[2]+3])
+        # number_mesh = add.move(number_mesh, [j * 10 - centras[0], -width/2 - centras[1], -centras[2]+3]) # cia jeigu 2. variantas
+
+        number_mesh = add.color(number_mesh, [255, 255, 255])
+        add.mesh(number_mesh)
 
     # cia bsk chatuko kodas tbf
     def add3DDisc(x, y, thickness=5, radius=4.5, segments=10, color=(255, 0, 0)):
@@ -124,10 +140,10 @@ def generate_board(board):
     # add3DDisc(4, 0, lenght-3, color=(255, 255, 0))  # Yellow disc at position (4,1)
     for i in range(6):
         for j in range(7):
-            if board[6-j][i] == 'X':
-                add3DDisc(i+1, j, lenght-3, color=(255, 0, 0))
-            elif board[6-j][i] == 'O':
-                add3DDisc(i+1, j, lenght-3, color=(255, 255, 0))
+            if board[i][j] == 'X':
+                add3DDisc(j, 5-i, lenght-3, color=(255, 0, 0))
+            elif board[i][j] == 'O':
+                add3DDisc(j, 5-i, lenght-3, color=(255, 255, 0))
 
 
     add.off("board.off")
