@@ -124,10 +124,10 @@ def generate_board(board):
     # add3DDisc(4, 0, lenght-3, color=(255, 255, 0))  # Yellow disc at position (4,1)
     for i in range(6):
         for j in range(7):
-            if board[6-j][i] == 'X':
-                add3DDisc(i+1, j, lenght-3, color=(255, 0, 0))
-            elif board[6-j][i] == 'O':
-                add3DDisc(i+1, j, lenght-3, color=(255, 255, 0))
+            if board[i][j] == 'X':
+                add3DDisc(j, 5-i, lenght-3, color=(255, 0, 0))
+            elif board[i][j] == 'O':
+                add3DDisc(j, 5-i, lenght-3, color=(255, 255, 0))
 
 
     add.off("board.off")
