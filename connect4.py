@@ -44,6 +44,9 @@ def play_game():
     game_over = False
     turn = 0
 
+# cia pridedu kad sugeneruotu ir empty lenta
+    generate_board(board)
+
     while not game_over:
         piece = 'X' if turn % 2 == 0 else 'O'
 
