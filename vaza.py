@@ -46,3 +46,5 @@ cap_vertices_str = [f"{x} {y} {z}" for x, y, z in cap_vertices]
 add.mesh([cap_vertices_str, faces])
 
 add.parametric(vaza, min_u, max_u, grid_u, min_v, max_v, grid_v, RGB)
+
+add.off('vaza.off')
