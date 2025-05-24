@@ -70,11 +70,11 @@ def add_kede(count):
     center = add.center(kede_mesh)
     if count == 1:
         kede_mesh = add.rotateY(kede_mesh, math.pi, center)
-        kede_mesh = add.move(kede_mesh, [-center[0] - 100, -center[1] - 69, -center[2]])
+        kede_mesh = add.move(kede_mesh, [-center[0] - 100, -center[1] - 68.5, -center[2]])
     else:
         # cia bsk slight roattion del # detail
         kede_mesh = add.rotateY(kede_mesh, math.pi/8, center)
-        kede_mesh = add.move(kede_mesh, [-center[0] + 100, -center[1] - 69, -center[2] - 15])
+        kede_mesh = add.move(kede_mesh, [-center[0] + 100, -center[1] - 68.5, -center[2] - 15])
 
 
     add.mesh(kede_mesh)
@@ -91,7 +91,7 @@ def add_lentyna():
     lentyna_mesh = add.rotateY(lentyna_mesh, -math.pi/2, center)
 
     # Move mesh so its center is at [0,0,0]
-    lentyna_mesh = add.move(lentyna_mesh, [-center[0]-150, -center[1] - 93, -center[2]-250])
+    lentyna_mesh = add.move(lentyna_mesh, [-center[0]-150, -center[1] - 92, -center[2]-250])
 
     add.mesh(lentyna_mesh)
 
@@ -107,7 +107,7 @@ def add_vaza():
     vaza_mesh = add.rotateX(vaza_mesh, math.pi/2, center)
 
     # Move mesh so its center is at [0,0,0]
-    vaza_mesh = add.move(vaza_mesh, [-center[0]+150, -center[1] - 115, -center[2]-270])
+    vaza_mesh = add.move(vaza_mesh, [-center[0]+150, -center[1] - 114, -center[2]-270])
 
     add.mesh(vaza_mesh)
 
