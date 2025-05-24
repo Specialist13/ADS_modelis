@@ -1,4 +1,5 @@
 from connect4board import generate_board
+from generate_everything import generate_everything
 ROWS = 6
 COLUMNS = 7
 
@@ -48,6 +49,9 @@ def play_game():
     generate_board(board)
 
     while not game_over:
+
+        generate_everything()
+
         piece = 'X' if turn % 2 == 0 else 'O'
 
         try:
