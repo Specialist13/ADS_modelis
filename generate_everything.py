@@ -3,6 +3,7 @@ import grindys
 import stalas
 import kede
 import lentyna
+import lempa
 import vaza
 import add
 import os
@@ -91,7 +92,8 @@ def add_lentyna():
     lentyna_mesh = add.rotateY(lentyna_mesh, -math.pi/2, center)
 
     # Move mesh so its center is at [0,0,0]
-    lentyna_mesh = add.move(lentyna_mesh, [-center[0]-150, -center[1] - 92, -center[2]-250])
+    #cia be centro y, nes sugadina knygu pridejimas, o jos random tai jo
+    lentyna_mesh = add.move(lentyna_mesh, [-center[0]-150, -18, -center[2]-250])
 
     add.mesh(lentyna_mesh)
 
@@ -111,6 +113,20 @@ def add_vaza():
 
     add.mesh(vaza_mesh)
 
+def add_lempa():
+    vertices, faces = add.load("lempa.off")
+    lempa_mesh = [vertices, faces]
+
+    # First apply zoom
+    lempa_mesh = add.zoom(lempa_mesh, ZOOM)
+
+    # Get the current center of the mesh
+    center = add.center(lempa_mesh)
+
+    # Move mesh so its center is at [0,0,0]
+    lempa_mesh = add.move(lempa_mesh, [-center[0]+250, -center[1]+22, -center[2]])
+
+    add.mesh(lempa_mesh)
 
 def add_sienos():
     # Floor dimensions from grindys.py
@@ -158,6 +174,9 @@ def generate_everything():
     if not os.path.exists("vaza.off"):
         vaza.generate_vaza()
         add.clear()
+    if not os.path.exists("lempa.off"):
+        lempa.generate_lempa()
+        add.clear()
 
 
     add_board()
@@ -167,6 +186,7 @@ def generate_everything():
     add_floor()
     add_lentyna()
     add_vaza()
+    add_lempa()
     add_sienos()
 
     add.off("everything.off")
