@@ -5,6 +5,7 @@ import kede
 import lentyna
 import lempa
 import vaza
+import sofa
 import add
 import os
 import math
@@ -155,6 +156,23 @@ def add_sienos():
     # West wall
     add.rectangle3D((-half_size - wall_thickness / 2, wall_y, 0), (wall_thickness, wall_height, total_size), wall_color)
 
+def add_sofa():
+    vertices, faces = add.load("sofa.off")
+    sofa_mesh = [vertices, faces]
+
+    # First apply zoom
+    sofa_mesh = add.zoom(sofa_mesh, ZOOM*2)
+
+
+    # Get the current center of the mesh
+    center = add.center(sofa_mesh)
+
+    sofa_mesh = add.rotateY(sofa_mesh, math.pi, center)
+    # Move mesh so its center is at [0,0,0]
+    sofa_mesh = add.move(sofa_mesh, [-center[0] - 270, -center[1] - 132, -center[2]+150])
+
+    add.mesh(sofa_mesh)
+
 def generate_everything():
 
     #sugeneruot visus failus, labai goofy, kad reik clearint kas karta, nes jie viska sudeda i pvz stalo faila lol
@@ -177,6 +195,9 @@ def generate_everything():
     if not os.path.exists("lempa.off"):
         lempa.generate_lempa()
         add.clear()
+    if not os.path.exists("sofa.off"):
+        sofa.generate_sofa()
+        add.clear()
 
 
     add_board()
@@ -187,6 +208,7 @@ def generate_everything():
     add_lentyna()
     add_vaza()
     add_lempa()
+    add_sofa()
     add_sienos()
 
     add.off("everything.off")
