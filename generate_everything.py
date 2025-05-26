@@ -11,6 +11,7 @@ import add
 import os
 import math
 import gele
+import televizorius
 import gmesh
 import random
 
@@ -138,6 +139,21 @@ def add_lempa():
 
     add.mesh(lempa_mesh)
 
+def add_televizorius():
+    vertices, faces = add.load("televizorius.off")
+    tv_mesh = [vertices, faces]
+
+    # First apply zoom
+    tv_mesh = add.zoom(tv_mesh, ZOOM)
+
+    # Get the current center of the mesh
+    center = add.center(tv_mesh)
+
+    # Move mesh so its center is at [0,0,0]
+    tv_mesh = add.move(tv_mesh, [-center[0] + 332, -center[1] + 22, -center[2] + 150])
+
+    add.mesh(tv_mesh)
+
 def add_sienos():
     # Floor dimensions from grindys.py
     grid_size = 20
@@ -212,6 +228,9 @@ def generate_everything():
     if not os.path.exists("gmesh.off"):
         gmesh.gen_gmesh()
         add.clear()
+    if not os.path.exists("televizorius.off"):
+        televizorius.generate_televizorius()
+        add.clear()
 
 
     add_board()
@@ -223,6 +242,7 @@ def generate_everything():
     add_vaza()
     add_lempa()
     add_sofa()
+    add_televizorius()
     add_sienos()
 
     add.off("everything.off")
