@@ -9,6 +9,8 @@ import sofa
 import add
 import os
 import math
+import gele
+import random
 
 ZOOM = 1 # cj sito nereiktu liest xdd
 
@@ -114,6 +116,23 @@ def add_vaza():
 
     add.mesh(vaza_mesh)
 
+    for i in range(20):
+        offset_x = random.randint(-30, 30)
+        offset_z = random.randint(-30, 30)
+        vertices, faces = add.load("gele.off")
+        gele_mesh = [vertices, faces]
+
+        # First apply zoom
+        gele_mesh = add.zoom(gele_mesh, ZOOM)
+
+        # Get the current center of the mesh
+        center = add.center(gele_mesh)
+
+        # Move mesh so its center is at [0,0,0]
+        gele_mesh = add.move(gele_mesh, [-center[0]+150+offset_x, -center[1]-19.125, -center[2]-270+offset_z])
+
+        add.mesh(gele_mesh)
+
 def add_lempa():
     vertices, faces = add.load("lempa.off")
     lempa_mesh = [vertices, faces]
@@ -197,6 +216,9 @@ def generate_everything():
         add.clear()
     if not os.path.exists("sofa.off"):
         sofa.generate_sofa()
+        add.clear()
+    if not os.path.exists("gele.off"):
+        gele.generate_gele()
         add.clear()
 
 
