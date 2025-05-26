@@ -60,6 +60,8 @@ def play_game():
             if 1<=column<=COLUMNS:
                 column -= 1
                 if drop_piece(board, column, piece):
+                    generate_board(board)
+                    generate_everything()
                     if check_win(board, piece):
                         print(f"Player {piece} wins!")
                         game_over = True
@@ -75,7 +77,7 @@ def play_game():
         except ValueError:
             print("Invalid input. Please enter a number.")
 
-        generate_board(board)
+        
         
 
 if __name__ == "__main__":
