@@ -127,9 +127,10 @@ def add_vaza():
 
         # Get the current center of the mesh
         center = add.center(gele_mesh)
+        gele_mesh = add.rotateY(gele_mesh, math.pi/2*random.uniform(0, 1), center)
 
         # Move mesh so its center is at [0,0,0]
-        gele_mesh = add.move(gele_mesh, [-center[0]+150+offset_x, -center[1]-19.125, -center[2]-270+offset_z])
+        gele_mesh = add.move(gele_mesh, [-center[0]+150+offset_x, -center[1]-24.125, -center[2]-270+offset_z])
 
         add.mesh(gele_mesh)
 
