@@ -1,4 +1,5 @@
 import connect4board
+import gmesh
 import grindys
 import stalas
 import kede
@@ -10,6 +11,7 @@ import add
 import os
 import math
 import gele
+import gmesh
 import random
 
 ZOOM = 1 # cj sito nereiktu liest xdd
@@ -116,23 +118,10 @@ def add_vaza():
 
     add.mesh(vaza_mesh)
 
-    for i in range(20):
-        offset_x = random.randint(-30, 30)
-        offset_z = random.randint(-30, 30)
-        vertices, faces = add.load("gele.off")
-        gele_mesh = [vertices, faces]
+    gele_mesh = add.load("gmesh.off")
 
-        # First apply zoom
-        gele_mesh = add.zoom(gele_mesh, ZOOM)
-
-        # Get the current center of the mesh
-        center = add.center(gele_mesh)
-        gele_mesh = add.rotateY(gele_mesh, math.pi/2*random.uniform(0, 1), center)
-
-        # Move mesh so its center is at [0,0,0]
-        gele_mesh = add.move(gele_mesh, [-center[0]+150+offset_x, -center[1]-24.125, -center[2]-270+offset_z])
-
-        add.mesh(gele_mesh)
+    gele_mesh = add.move(gele_mesh, [-center[0] + 150, -center[1] - 24.125, -center[2] - 220])
+    add.mesh(gele_mesh)
 
 def add_lempa():
     vertices, faces = add.load("lempa.off")
@@ -183,7 +172,6 @@ def add_sofa():
     # First apply zoom
     sofa_mesh = add.zoom(sofa_mesh, ZOOM*2)
 
-
     # Get the current center of the mesh
     center = add.center(sofa_mesh)
 
@@ -220,6 +208,9 @@ def generate_everything():
         add.clear()
     if not os.path.exists("gele.off"):
         gele.generate_gele()
+        add.clear()
+    if not os.path.exists("gmesh.off"):
+        gmesh.gen_gmesh()
         add.clear()
 
 
